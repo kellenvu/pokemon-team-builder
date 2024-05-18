@@ -20,7 +20,7 @@ const PokemonPicker = () => {
     return (
         <div className="pokemon-picker">
             <select value={selectedPokemon} onChange={handleChange}>
-                <option value="">Select a Pokémon</option>
+                <option value="">Select</option>
                 {pokemon.all().sort().map((name) => (
                     <option key={name} value={name}>
                         {name}
