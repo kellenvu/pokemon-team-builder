@@ -1,0 +1,16 @@
+.Sidebar {
+    font-family: Arial, sans-serif;
+}
+
+.Sidebar h2 {
+    margin-top: 0;
+}
+
+.Sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.Sidebar ul li {
+    margin: 10px 0;
+}

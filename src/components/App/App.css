@@ -1,0 +1,36 @@
+:root {
+  --sidebar-width: 500px;
+}
+
+.App {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.Sidebar {
+  width: var(--sidebar-width);
+  background-color: #f8f9fa;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  position: sticky;
+  top: 0;
+}
+
+.MainContent {
+  padding: 20px;
+  width: calc(100% - var(--sidebar-width));
+  overflow-y: auto;
+}
+
+.MainContent header {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.MainContent .content {
+  margin-top: 20px;
+}
