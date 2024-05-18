@@ -6,9 +6,14 @@ const Sidebar = () => {
   return (
     <div className="Sidebar">
       <h2>Your Pokémon Team</h2>
-      <ul>
-        <li><PokemonPicker /></li>
-      </ul>
+      <div className="pokemon-grid">
+        <PokemonPicker />
+        <PokemonPicker />
+        <PokemonPicker />
+        <PokemonPicker />
+        <PokemonPicker />
+        <PokemonPicker />
+      </div>
     </div>
   );
 };
