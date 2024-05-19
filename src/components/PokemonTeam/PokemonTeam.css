@@ -1,0 +1,13 @@
+.pokemon-team {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  gap: 10px;
+  padding: 20px;
+  overflow-x: auto;
+}
+
+.pokemon-team .pokemon-picker {
+  flex: 0 0 16%;
+  min-width: 200px;
+}

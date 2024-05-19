@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import pokemon from 'pokemon';
 import './PokemonPicker.css';
+import TypesList from '../TypesList/TypesList';
 
 const PokemonPicker = () => {
     const [selectedPokemon, setSelectedPokemon] = useState('');
@@ -9,10 +10,12 @@ const PokemonPicker = () => {
         setSelectedPokemon(event.target.value);
     };
 
+    // Convert the selected Pokémon name to the format required for the URL
     const formatPokemonName = (name) => {
         return name.toLowerCase().replace(/[^a-z0-9]/g, '');
     };
 
+    // Fallback image URL
     const getFallbackUrl = (name) => {
         return `https://play.pokemonshowdown.com/sprites/gen5/${formatPokemonName(name)}.png`;
     };
@@ -20,7 +23,7 @@ const PokemonPicker = () => {
     return (
         <div className="pokemon-picker">
             <select value={selectedPokemon} onChange={handleChange}>
-                <option value="">Select</option>
+                <option value="">Select a Pokémon</option>
                 {pokemon.all().sort().map((name) => (
                     <option key={name} value={name}>
                         {name}
@@ -40,6 +43,8 @@ const PokemonPicker = () => {
                     />
                 )}
             </div>
+            <p className="">Damaging Attacks:</p>
+            <TypesList />
         </div>
     );
 };
