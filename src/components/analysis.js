@@ -141,7 +141,7 @@ const recommendationsAdd = (team) => {
 
         if (arrayIsGreater(curr, before)) {
             recommendations.push({
-                recommendation: `Add ${pkmnType} Pokémon (increases coverage from ${before.join('/')} to ${curr.join('/')})`,
+                recommendation: `Add ${pkmnType} Pokémon (coverage ${curr.join('/')})`,
                 score: curr
             });
         }
@@ -178,7 +178,7 @@ const recommendationsReplace = (team) => {
 
             if (arrayIsGreater(curr, before)) {
                 recommendations.push({
-                    recommendation: `Replace ${pokemon.name} with ${pkmnType} Pokémon (increases coverage from ${before.join('/')} to ${curr.join('/')})`,
+                    recommendation: `Replace ${pokemon.name} with ${pkmnType} Pokémon (coverage ${curr.join('/')})`,
                     score: curr
                 });
             }
