@@ -1,0 +1,91 @@
+@import '../../../../types.css';
+
+.type-box {
+    border-radius: 6px;
+    color: #fff;
+    cursor: pointer;
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    opacity: 0.25;
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3), 1px -1px 1px rgba(0, 0, 0, 0.3), -1px 1px 0 rgba(0, 0, 0, 0.5), 1px 1px 1px rgba(0, 0, 0, 0.5), 0 1px 1px rgba(0, 0, 0, 0.9), 0 2px 1px rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+    user-select: none;
+}
+
+.type-box.selected {
+    opacity: 1;
+}
+
+.type-box.type-normal {
+    background: var(--type-normal);
+}
+
+.type-box.type-fire {
+    background: var(--type-fire);
+}
+
+.type-box.type-water {
+    background: var(--type-water);
+}
+
+.type-box.type-electric {
+    background: var(--type-electric);
+}
+
+.type-box.type-grass {
+    background: var(--type-grass);
+}
+
+.type-box.type-ice {
+    background: var(--type-ice);
+}
+
+.type-box.type-fighting {
+    background: var(--type-fighting);
+}
+
+.type-box.type-poison {
+    background: var(--type-poison);
+}
+
+.type-box.type-ground {
+    background: var(--type-ground);
+}
+
+.type-box.type-flying {
+    background: var(--type-flying);
+}
+
+.type-box.type-psychic {
+    background: var(--type-psychic);
+}
+
+.type-box.type-bug {
+    background: var(--type-bug);
+}
+
+.type-box.type-rock {
+    background: var(--type-rock);
+}
+
+.type-box.type-ghost {
+    background: var(--type-ghost);
+}
+
+.type-box.type-dragon {
+    background: var(--type-dragon);
+}
+
+.type-box.type-dark {
+    background: var(--type-dark);
+}
+
+.type-box.type-steel {
+    background: var(--type-steel);
+}
+
+.type-box.type-fairy {
+    background: var(--type-fairy);
+}

@@ -8,7 +8,7 @@ const Slider = ({ value, onChange }) => {
       <input
         id="pokemon-slider"
         type="range"
-        min="0"
+        min="1"
         max="6"
         value={value}
         onChange={onChange}

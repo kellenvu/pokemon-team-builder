@@ -1,0 +1,25 @@
+.type-coverage {
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin: 0 10px 0 20px;
+    overflow-x: auto;
+    padding: 20px;
+    text-align: left;
+    width: 50%;
+}
+
+.type-coverage-row {
+    align-items: center;
+    display: flex;
+    height: 30px;
+    margin-bottom: 2px;
+    white-space: nowrap;
+}
+
+.summary-stats {
+    margin-top: 20px;
+}
+
+.summary-stats p {
+    margin: 0;
+}

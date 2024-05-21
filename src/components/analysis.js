@@ -1,0 +1,215 @@
+const TYPES = [
+    'normal', 'fire', 'water', 'electric', 'grass', 'ice', 'fighting', 'poison', 'ground', 'flying', 'psychic', 'bug', 'rock', 'ghost', 'dragon', 'dark', 'steel'
+];
+
+const EFFECTIVENESS = [
+    [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.5, 0.0, 1.0, 1.0, 0.5],
+    [1.0, 0.5, 0.5, 1.0, 2.0, 2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 0.5, 1.0, 0.5, 1.0, 2.0],
+    [1.0, 2.0, 0.5, 1.0, 0.5, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 1.0, 2.0, 1.0, 0.5, 1.0, 1.0],
+    [1.0, 1.0, 2.0, 0.5, 0.5, 1.0, 1.0, 1.0, 0.0, 2.0, 1.0, 1.0, 1.0, 1.0, 0.5, 1.0, 1.0],
+    [1.0, 0.5, 2.0, 1.0, 0.5, 1.0, 1.0, 0.5, 2.0, 0.5, 1.0, 0.5, 2.0, 1.0, 0.5, 1.0, 0.5],
+    [1.0, 0.5, 0.5, 1.0, 2.0, 0.5, 1.0, 1.0, 2.0, 2.0, 1.0, 1.0, 1.0, 1.0, 2.0, 1.0, 0.5],
+    [2.0, 1.0, 1.0, 1.0, 1.0, 2.0, 1.0, 0.5, 1.0, 0.5, 0.5, 0.5, 2.0, 0.0, 1.0, 2.0, 2.0],
+    [1.0, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 0.5, 0.5, 1.0, 1.0, 1.0, 0.5, 0.5, 1.0, 1.0, 0.0],
+    [1.0, 2.0, 1.0, 2.0, 0.5, 1.0, 1.0, 2.0, 1.0, 0.0, 1.0, 0.5, 2.0, 1.0, 1.0, 1.0, 2.0],
+    [1.0, 1.0, 1.0, 0.5, 2.0, 1.0, 2.0, 1.0, 1.0, 1.0, 1.0, 2.0, 0.5, 1.0, 1.0, 1.0, 0.5],
+    [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 2.0, 1.0, 1.0, 0.5, 1.0, 1.0, 1.0, 1.0, 0.0, 0.5],
+    [1.0, 0.5, 1.0, 1.0, 2.0, 1.0, 0.5, 0.5, 1.0, 0.5, 2.0, 1.0, 1.0, 0.5, 1.0, 2.0, 0.5],
+    [1.0, 2.0, 1.0, 1.0, 1.0, 2.0, 0.5, 1.0, 0.5, 2.0, 1.0, 2.0, 1.0, 1.0, 1.0, 1.0, 0.5],
+    [0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 2.0, 1.0, 0.5, 0.5],
+    [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 1.0, 0.5],
+    [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.5, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 2.0, 1.0, 0.5, 0.5],
+    [1.0, 0.5, 0.5, 0.5, 1.0, 2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.5, 1.0, 1.0, 1.0, 2.0]
+];
+
+/**
+ * Computes the effectiveness of the attack type against the defender's types.
+ * @param {string} attackType The attack type.
+ * @param {Array<string>} defenderTypes An array of the defender's types (max 2).
+ * @returns {float} The multiplier of the attack against the defender.
+ */
+const effectiveness = (attackType, defenderTypes) => {
+    const attackIdx = TYPES.indexOf(attackType);
+    let ans = 1;
+
+    defenderTypes.forEach(defenderType => {
+        const defenderIdx = TYPES.indexOf(defenderType);
+        ans *= EFFECTIVENESS[attackIdx][defenderIdx];
+    });
+
+    return ans;
+};
+
+/**
+ * Returns whether the attacker's attack is effective against the defender. Effective is defined as the attack having a > 1 multiplier against the defender, while the defender's STAB attack has a <= 1 multiplier against the attacker.
+ * @param {string} attackType The attack type.
+ * @param {Array<string>} attackerTypes An array of the attacker's types (max 2).
+ * @param {Array<string>} defenderType An array of the defender's types (max 2).
+ * @returns {boolean} Whether the atttacker's attack is effective against the defender.
+ */
+const isEffective = (attackType, attackerTypes, defenderType) => {
+    console.log(`attack ${attackType}, attackerTypes ${attackerTypes}, defenderType ${defenderType}`)
+    return effectiveness(attackType, [defenderType]) > 1 && effectiveness(defenderType, attackerTypes) <= 1;
+};
+
+/**
+ * Analyzes the Pokemon team and returns which Pokemon are effective against which types.
+ * @param {Array<Object<string, any>} team The pokemon team.
+ * @returns {Object<string, Array<string>>} An object describing which Pokemon are effective against which types.
+ */
+const analyzeTeam = (team) => {
+    const defenderIsWeakTo = TYPES.reduce((acc, type) => {
+        acc[type] = new Set();
+        return acc;
+    }, {});
+
+    team.forEach(pokemon => {
+        pokemon.moveTypes.forEach(attackType => {
+            TYPES.forEach(defenderType => {
+                if (isEffective(attackType, pokemon.pokemonTypes, defenderType)) {
+                    defenderIsWeakTo[defenderType].add(pokemon.name);
+                }
+            });
+        });
+    });
+
+    for (const type in defenderIsWeakTo) {
+        defenderIsWeakTo[type] = Array.from(defenderIsWeakTo[type]);
+    }
+
+    return defenderIsWeakTo;
+};
+
+/**
+ * Computes the number of types that are countered by at least n Pokemon.
+ * @param {Object<string, Array<string>>} analysisResult An object describing which Pokemon are effective against which types.
+ * @param {int} n
+ * @returns {int} The number of types that are countered by at least n Pokemon.
+ */
+const defendersCovered = (team, n = 1) => {
+    const analysisResult = analyzeTeam(team);
+    return TYPES.reduce((count, type) => {
+        if (analysisResult[type] && analysisResult[type].length >= n) {
+            count++;
+        }
+        return count;
+    }, 0);
+};
+
+const marginalUsefulness = (team) => {
+    const usefulness = {};
+    const defendersCoveredBefore = defendersCovered(team);
+
+    team.forEach((pokemon, i) => {
+        const newTeam = [...team];
+        newTeam.splice(i, 1);
+        usefulness[pokemon.name] = defendersCoveredBefore - defendersCovered(newTeam);
+    });
+
+    return usefulness;
+};
+
+const arrayIsGreater = (arr1, arr2) => {
+    for (let i = 0; i < arr1.length; i++) {
+        if (arr1[i] > arr2[i]) return true;
+        if (arr1[i] < arr2[i]) return false;
+    }
+    return false;
+};
+
+const arraysAreEqual = (arr1, arr2) => {
+    if (arr1.length !== arr2.length) return false;
+    for (let i = 0; i < arr1.length; i++) {
+        if (arr1[i] !== arr2[i]) return false;
+    }
+    return true;
+};
+
+/**
+ * Returns a list of recommendations about which Pokemon to add.
+ * @param {Array<Object<string, any>} team The Pokemon team.
+ * @returns {Array<string>} A list of recommendations about which Pokemon to add.
+ */
+const recommendationsAdd = (team) => {
+    let best = [defendersCovered(team, 1), defendersCovered(team, 2), defendersCovered(team, 3)];
+    const before = [...best];
+    let recommendations = [];
+
+    TYPES.forEach((pkmnType) => {
+        const newTeam = [...team, { name: 'XXX', pokemonTypes: [pkmnType], moveTypes: [pkmnType] }];
+        const curr = [defendersCovered(newTeam, 1), defendersCovered(newTeam, 2), defendersCovered(newTeam, 3)];
+
+        if (arrayIsGreater(curr, before)) {
+            recommendations.push({
+                recommendation: `Add ${pkmnType} Pokémon (increases coverage from ${before.join('/')} to ${curr.join('/')})`,
+                score: curr
+            });
+        }
+    });
+
+    // Sort recommendations by score in descending order and take the top 10
+    recommendations.sort((a, b) => {
+        for (let i = 0; i < a.score.length; i++) {
+            if (b.score[i] !== a.score[i]) {
+                return b.score[i] - a.score[i];
+            }
+        }
+        return 0;
+    });
+
+    return recommendations.slice(0, 10).map(rec => rec.recommendation);
+};
+
+/**
+ * Returns a list of recommendations about which Pokemon to replace.
+ * @param {Array<Object<string, any>} team The Pokemon team.
+ * @returns {Array<string>} A list of recommendations about which Pokemon to replace.
+ */
+const recommendationsReplace = (team) => {
+    let best = [defendersCovered(team, 1), defendersCovered(team, 2), defendersCovered(team, 3)];
+    const before = [...best];
+    let recommendations = [];
+
+    TYPES.forEach((pkmnType) => {
+        team.forEach((pokemon, i) => {
+            const newTeam = [...team];
+            newTeam[i] = { name: 'XXX', pokemonTypes: [pkmnType], moveTypes: [pkmnType] };
+            const curr = [defendersCovered(newTeam, 1), defendersCovered(newTeam, 2), defendersCovered(newTeam, 3)];
+
+            if (arrayIsGreater(curr, before)) {
+                recommendations.push({
+                    recommendation: `Replace ${pokemon.name} with ${pkmnType} Pokémon (increases coverage from ${before.join('/')} to ${curr.join('/')})`,
+                    score: curr
+                });
+            }
+        });
+    });
+
+    // Sort recommendations by score in descending order and take the top 10
+    recommendations.sort((a, b) => {
+        for (let i = 0; i < a.score.length; i++) {
+            if (b.score[i] !== a.score[i]) {
+                return b.score[i] - a.score[i];
+            }
+        }
+        return 0;
+    });
+
+    return recommendations.slice(0, 10).map(rec => rec.recommendation);
+};
+
+/**
+ * Returns a list of recommendations based on the Pokemon team.
+ * @param {Array<Object<string, any>} team The Pokemon team.
+ * @param {int} teamSize The max team size.
+ * @returns {Array<string>} A list of recommendations.
+ */
+const recommendations = (team, teamSize) => {
+    if (team.length < teamSize) {
+        return recommendationsAdd(team);
+    } else {
+        return recommendationsReplace(team);
+    }
+};
+
+export { analyzeTeam, defendersCovered, recommendations, marginalUsefulness, TYPES };
