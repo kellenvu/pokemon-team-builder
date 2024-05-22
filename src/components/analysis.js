@@ -96,33 +96,22 @@ const defendersCovered = (team, n = 1) => {
     }, 0);
 };
 
-const marginalUsefulness = (team) => {
-    const usefulness = {};
-    const defendersCoveredBefore = defendersCovered(team);
-
-    team.forEach((pokemon, i) => {
-        const newTeam = [...team];
-        newTeam.splice(i, 1);
-        usefulness[pokemon.name] = defendersCoveredBefore - defendersCovered(newTeam);
-    });
-
-    return usefulness;
-};
-
+/**
+ * Compares two arrays element-wise to determine if the first array is greater than the second.
+ * The comparison is done in lexicographical order: if an element in arr1 is greater than the corresponding element in arr2, the function returns true.
+ * If an element in arr1 is less than the corresponding element in arr2, the function returns false.
+ * If all elements are equal, the function returns false.
+ *
+ * @param {Array<number>} arr1 - The first array to compare.
+ * @param {Array<number>} arr2 - The second array to compare.
+ * @returns {boolean} - True if arr1 is greater than arr2, false otherwise.
+ */
 const arrayIsGreater = (arr1, arr2) => {
     for (let i = 0; i < arr1.length; i++) {
         if (arr1[i] > arr2[i]) return true;
         if (arr1[i] < arr2[i]) return false;
     }
     return false;
-};
-
-const arraysAreEqual = (arr1, arr2) => {
-    if (arr1.length !== arr2.length) return false;
-    for (let i = 0; i < arr1.length; i++) {
-        if (arr1[i] !== arr2[i]) return false;
-    }
-    return true;
 };
 
 /**
@@ -205,11 +194,14 @@ const recommendationsReplace = (team) => {
  * @returns {Array<string>} A list of recommendations.
  */
 const recommendations = (team, teamSize) => {
+    let recs;
     if (team.length < teamSize) {
-        return recommendationsAdd(team);
+        recs = recommendationsAdd(team);
     } else {
-        return recommendationsReplace(team);
+        recs = recommendationsReplace(team);
     }
+
+    return recs.length ? recs : ["None!"];
 };
 
-export { analyzeTeam, defendersCovered, recommendations, marginalUsefulness, TYPES };
+export { analyzeTeam, defendersCovered, recommendations, TYPES };
