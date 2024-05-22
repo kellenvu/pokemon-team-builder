@@ -9,7 +9,7 @@ const PokemonPicker = ({ onPickerChange }) => {
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [pokemonImage, setPokemonImage] = useState('');
 
-  const pokemonOptions = pokemon.all().map((name) => ({
+  const pokemonOptions = pokemon.all().slice().sort().map((name) => ({
     label: name,
     value: name,
   }));
