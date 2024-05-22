@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { Tooltip } from 'react-tooltip';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import './TypeCoverage.css';
 import { analyzeTeam, TYPES, defendersCovered } from '../analysis';
 import TypeIcon from '../TypeIcon/TypeIcon';
@@ -19,7 +22,13 @@ const TypeCoverage = ({ pokemonTeam }) => {
   return (
     <div className="type-coverage">
       <div className="type-coverage-scroll">
-        <p className="mb-2">You can counter <b>[this type]</b> using:</p>
+        <p className="mb-2">
+          You can counter <b>[this type]</b> using:
+          <FontAwesomeIcon icon={faInfoCircle} data-tooltip-id="infoTooltip" className="info-icon" />
+        </p>
+        <Tooltip id="infoTooltip" place="top" effect="solid" className="custom-tooltip">
+          An effective counter is defined as a Pokémon whose damaging moves are super effective against the target, AND the target's STAB moves are not super effective against the Pokémon.
+        </Tooltip>
         {TYPES.map((type) => (
           <div key={type} className="type-coverage-row">
             <TypeIcon type={type} />

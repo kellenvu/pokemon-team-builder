@@ -26,3 +26,15 @@
 .summary-stats p {
     margin: 0;
 }
+
+.info-icon {
+    cursor: pointer;
+    margin-left: 10px;
+    color: gray;
+}
+
+.custom-tooltip {
+    max-width: 30%;
+    border-radius: 20px;
+    white-space: normal;
+}

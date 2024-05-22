@@ -56,7 +56,7 @@ const PokemonPicker = ({ onPickerChange }) => {
         onChange={handlePokemonChange}
         options={pokemonOptions}
         isClearable
-        placeholder="Select a Pokémon"
+        placeholder="Select"
       />
       <div className="pokemon-image-box">
         {pokemonImage && (
@@ -68,7 +68,7 @@ const PokemonPicker = ({ onPickerChange }) => {
           />
         )}
       </div>
-      <p className="">Damaging Attacks:</p>
+      <p className="">Damaging Moves:</p>
       <TypesList selectedTypes={selectedTypes} onTypeToggle={handleTypeToggle} />
     </div>
   );
