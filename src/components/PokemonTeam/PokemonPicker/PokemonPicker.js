@@ -3,13 +3,15 @@ import Select from 'react-select';
 import pokemon from 'pokemon';
 import './PokemonPicker.css';
 import TypesList from './TypesList/TypesList';
+import TypeIcon from '../../TypeIcon/TypeIcon';
 
 const PokemonPicker = ({ onPickerChange }) => {
   const [selectedPokemon, setSelectedPokemon] = useState(null);
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [pokemonImage, setPokemonImage] = useState('');
+  const [pokemonTypes, setPokemonTypes] = useState([]);
 
-  const pokemonOptions = pokemon.all().slice().sort().map((name) => ({
+  const pokemonOptions = pokemon.all().slice(0, 649).sort().map((name) => ({
     label: name,
     value: name,
   }));
@@ -18,7 +20,7 @@ const PokemonPicker = ({ onPickerChange }) => {
     const name = selectedOption ? selectedOption.value : '';
     setSelectedPokemon(selectedOption);
     onPickerChange(name, selectedTypes);
-    await fetchPokemonImage(name);
+    await fetchPokemonData(name);
   };
 
   const handleTypeToggle = (type, isSelected) => {
@@ -29,7 +31,7 @@ const PokemonPicker = ({ onPickerChange }) => {
     onPickerChange(selectedPokemon ? selectedPokemon.value : '', newTypes);
   };
 
-  const fetchPokemonImage = async (name) => {
+  const fetchPokemonData = async (name) => {
     try {
       const pokemonId = pokemon.getId(name);
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
@@ -38,14 +40,14 @@ const PokemonPicker = ({ onPickerChange }) => {
       const showdownImage = data.sprites.other?.showdown?.front_default;
       const defaultImage = data.sprites.front_default;
 
-      if (showdownImage) {
-        setPokemonImage(showdownImage);
-      } else {
-        setPokemonImage(defaultImage);
-      }
+      setPokemonImage(showdownImage || defaultImage);
+
+      const types = data.types.map(typeInfo => typeInfo.type.name);
+      setPokemonTypes(types);
     } catch (error) {
-      console.error('Error fetching Pokémon image:', error);
+      console.error('Error fetching Pokémon data:', error);
       setPokemonImage('');
+      setPokemonTypes([]);
     }
   };
 
@@ -58,6 +60,11 @@ const PokemonPicker = ({ onPickerChange }) => {
         isClearable
         placeholder="Select"
       />
+      <div className="pokemon-types">
+        {pokemonTypes.map(type => (
+          <TypeIcon key={type} type={type} />
+        ))}
+      </div>
       <div className="pokemon-image-box">
         {pokemonImage && (
           <img

@@ -56,7 +56,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1 className="mb-3">Pokémon Team Builder</h1>
+      <h1 className="mb-3">Pokémon Gen II-V Team Builder</h1>
       <Slider className="mb-3" value={numPickers} onChange={handleSliderChange} />
       <PokemonTeam numPickers={numPickers} onPickerChange={handlePickerChange} />
       <div className="analysis-section">
