@@ -4,10 +4,14 @@
 }
 
 .analysis-section {
-  align-items: flex-start;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
-  justify-content: space-between;
   margin: 0 20px 0 20px;
+}
+
+@media (max-width: 768px) {
+  .analysis-section {
+    grid-template-columns: 1fr;
+  }
 }

@@ -2,10 +2,13 @@
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
-    flex: 1 1 45%;
-    overflow-x: auto;
     padding: 20px;
     text-align: left;
+    overflow-x: auto;
+}
+
+.type-coverage-scroll {
+    overflow-x: auto;
 }
 
 .type-coverage-row {

@@ -18,20 +18,22 @@ const TypeCoverage = ({ pokemonTeam }) => {
 
   return (
     <div className="type-coverage">
-      <p className="mb-2">You can counter <b>[this type]</b> using:</p>
-      {TYPES.map((type) => (
-        <div key={type} className="type-coverage-row">
-          <TypeIcon type={type}/>
-          <span className="effective-pokemon ms-2">
-            {analysisResult[type] && analysisResult[type].join(', ')}
-          </span>
+      <div className="type-coverage-scroll">
+        <p className="mb-2">You can counter <b>[this type]</b> using:</p>
+        {TYPES.map((type) => (
+          <div key={type} className="type-coverage-row">
+            <TypeIcon type={type} />
+            <span className="effective-pokemon ms-2">
+              {analysisResult[type] && analysisResult[type].join(', ')}
+            </span>
+          </div>
+        ))}
+        <div className="summary-stats">
+          <p><b>Types that are countered by 1 Pokémon</b>: {coveredByOne} of {totalTypes}</p>
+          <p><b>Types that are countered by 2 Pokémon</b>: {coveredByTwo} of {totalTypes}</p>
+          <p><b>Types that are countered by 3 Pokémon</b>: {coveredByThree} of {totalTypes}</p>
+          <p><b>Overall coverage score</b>: {coveredByOne}/{coveredByTwo}/{coveredByThree}</p>
         </div>
-      ))}
-      <div className="summary-stats">
-        <p><b>Types that are countered by 1 Pokémon</b>: {coveredByOne} of {totalTypes}</p>
-        <p><b>Types that are countered by 2 Pokémon</b>: {coveredByTwo} of {totalTypes}</p>
-        <p><b>Types that are countered by 3 Pokémon</b>: {coveredByThree} of {totalTypes}</p>
-        <p><b>Overall coverage score</b>: {coveredByOne}/{coveredByTwo}/{coveredByThree}</p>
       </div>
     </div>
   );

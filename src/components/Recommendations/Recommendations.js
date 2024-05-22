@@ -17,7 +17,7 @@ const Recommendations = ({ pokemonTeam, teamSize }) => {
     return parts.map((part, index) => {
       const lowercasedPart = part.toLowerCase();
       if (TYPES.includes(lowercasedPart)) {
-        return <TypeIcon key={index} type={lowercasedPart}/>;
+        return <TypeIcon key={index} type={lowercasedPart} />;
       }
       return part;
     });
@@ -25,15 +25,17 @@ const Recommendations = ({ pokemonTeam, teamSize }) => {
 
   return (
     <div className="recommendations">
-      <h3>Recommendations</h3>
-      <ul>
-        {recs.map((rec, index) => (
-          <li key={index}>
-            {replaceTypesWithIcons(rec)}
-          </li>
-        ))}
-      </ul>
-    </div>
+      <div className="recommendations-scroll">
+        <h3>Recommendations</h3>
+        <ul>
+          {recs.map((rec, index) => (
+            <li key={index}>
+              {replaceTypesWithIcons(rec)}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div >
   );
 };
 

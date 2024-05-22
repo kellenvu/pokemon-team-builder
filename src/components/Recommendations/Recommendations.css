@@ -2,9 +2,14 @@
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
-    flex: 1 1 45%;
     padding: 20px;
     text-align: left;
+    overflow-x: auto;
+}
+
+.recommendations-scroll {
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
 .recommendations ul {
