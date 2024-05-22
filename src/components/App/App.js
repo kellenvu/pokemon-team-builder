@@ -63,6 +63,9 @@ function App() {
         <TypeCoverage teamSize={numPickers} pokemonTeam={filteredPokemonTeam} />
         <Recommendations pokemonTeam={filteredPokemonTeam} teamSize={numPickers} />
       </div>
+      <footer className="footer">
+        Made by <a href="https://kellenvu.github.io/" target="_blank" rel="noopener noreferrer">Kellen Vu</a>
+      </footer>
     </div>
   );
 }
