@@ -1,11 +1,11 @@
 .type-coverage {
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    margin: 0 10px 0 20px;
+    box-sizing: border-box;
+    flex: 1 1 45%;
     overflow-x: auto;
     padding: 20px;
     text-align: left;
-    width: 50%;
 }
 
 .type-coverage-row {
