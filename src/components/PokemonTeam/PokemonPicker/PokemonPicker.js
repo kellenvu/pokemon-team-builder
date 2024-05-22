@@ -36,20 +36,26 @@ const PokemonPicker = ({ onPickerChange }) => {
       const pokemonId = pokemon.getId(name);
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
       const data = await response.json();
-
+  
       const showdownImage = data.sprites.other?.showdown?.front_default;
       const defaultImage = data.sprites.front_default;
-
+  
       setPokemonImage(showdownImage || defaultImage);
-
-      const types = data.types.map(typeInfo => typeInfo.type.name);
+  
+      let types = data.types.map(typeInfo => typeInfo.type.name);
+      
+      const pastTypes = data.past_types.find(pt => pt.generation.name === 'generation-v');
+      if (pastTypes) {
+        types = pastTypes.types.map(typeInfo => typeInfo.type.name);
+      }
+  
       setPokemonTypes(types);
     } catch (error) {
       console.error('Error fetching Pokémon data:', error);
       setPokemonImage('');
       setPokemonTypes([]);
     }
-  };
+  };  
 
   return (
     <div className="pokemon-picker">

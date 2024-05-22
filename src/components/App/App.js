@@ -31,6 +31,11 @@ function App() {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
       const data = await response.json();
       pokemonTypes = data.types.map(typeInfo => typeInfo.type.name);
+
+      const pastTypes = data.past_types.find(pt => pt.generation.name === 'generation-v');
+      if (pastTypes) {
+        pokemonTypes = pastTypes.types.map(typeInfo => typeInfo.type.name);
+      }
     }
 
     setPokemonTeam((prevTeam) => {
@@ -39,6 +44,7 @@ function App() {
       return newTeam;
     });
   };
+
 
   const filteredPokemonTeam = pokemonTeam
     .filter(pokemon => pokemon.name !== '')
