@@ -1,33 +1,47 @@
 .pokemon-picker {
-    padding: 10px;
-    border-radius: 5px;
-    background-color: #fff;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  .pokemon-picker select {
-    width: 100%;
-    padding: 5px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-  }
-  
-  .pokemon-image-box {
-    width: 100%;
-    padding-top: 100%;
-    background-color: #fff;
-    /* border: 1px solid #ccc; */
-    border-radius: 5px;
-    position: relative;
-  }
-  
-  .pokemon-image-box img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 100%;
-    max-height: 100%;
-  }
-  
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.pokemon-picker .pokemon-image-box {
+  margin-top: 10px;
+}
+
+.pokemon-picker .pokemon-image {
+  max-width: 100%;
+  max-height: 100px;
+}
+
+.pokemon-picker .css-yk16xz-control {
+  width: 100%;
+}
+
+.pokemon-picker .css-1pahdxg-control {
+  width: 100%;
+  box-shadow: none;
+  border-color: #ddd;
+}
+
+.pokemon-picker .css-26l3qy-menu {
+  width: 100%;
+}
+
+.pokemon-image-box {
+  width: 100%;
+  padding-top: 100%;
+  background-color: #fff;
+  border-radius: 5px;
+  position: relative;
+}
+
+.pokemon-image-box img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100%;
+  max-height: 100%;
+}

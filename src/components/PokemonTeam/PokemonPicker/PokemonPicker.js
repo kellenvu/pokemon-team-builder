@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import Select from 'react-select';
 import pokemon from 'pokemon';
 import './PokemonPicker.css';
 import TypesList from './TypesList/TypesList';
 
 const PokemonPicker = ({ onPickerChange }) => {
-  const [selectedPokemon, setSelectedPokemon] = useState('');
+  const [selectedPokemon, setSelectedPokemon] = useState(null);
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [pokemonImage, setPokemonImage] = useState('');
 
-  const handlePokemonChange = async (event) => {
-    const name = event.target.value;
-    setSelectedPokemon(name);
+  const pokemonOptions = pokemon.all().map((name) => ({
+    label: name,
+    value: name,
+  }));
+
+  const handlePokemonChange = async (selectedOption) => {
+    const name = selectedOption ? selectedOption.value : '';
+    setSelectedPokemon(selectedOption);
     onPickerChange(name, selectedTypes);
     await fetchPokemonImage(name);
   };
@@ -20,7 +26,7 @@ const PokemonPicker = ({ onPickerChange }) => {
       ? [...selectedTypes, type]
       : selectedTypes.filter((t) => t !== type);
     setSelectedTypes(newTypes);
-    onPickerChange(selectedPokemon, newTypes);
+    onPickerChange(selectedPokemon ? selectedPokemon.value : '', newTypes);
   };
 
   const fetchPokemonImage = async (name) => {
@@ -45,19 +51,18 @@ const PokemonPicker = ({ onPickerChange }) => {
 
   return (
     <div className="pokemon-picker">
-      <select value={selectedPokemon} onChange={handlePokemonChange}>
-        <option value="">Select a Pokémon</option>
-        {pokemon.all().slice().sort().map((name) => (
-          <option key={name} value={name}>
-            {name}
-          </option>
-        ))}
-      </select>
+      <Select
+        value={selectedPokemon}
+        onChange={handlePokemonChange}
+        options={pokemonOptions}
+        isClearable
+        placeholder="Select a Pokémon"
+      />
       <div className="pokemon-image-box">
         {pokemonImage && (
           <img
             src={pokemonImage}
-            alt={selectedPokemon}
+            alt={selectedPokemon ? selectedPokemon.label : ''}
             className="pokemon-image"
             onError={() => setPokemonImage('')}
           />
