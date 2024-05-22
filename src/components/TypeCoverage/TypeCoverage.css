@@ -8,6 +8,7 @@
 }
 
 .type-coverage-scroll {
+    white-space: nowrap;
     overflow-x: auto;
 }
 
@@ -16,7 +17,6 @@
     display: flex;
     height: 30px;
     margin-bottom: 2px;
-    white-space: nowrap;
 }
 
 .summary-stats {
