@@ -4,8 +4,8 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
-    margin: 0 auto; /* Center the slider container */
-    max-width: 600px; /* Set a max width for the slider container */
+    margin: 0 auto;
+    max-width: 600px;
     padding: 15px;
     width: 100%;
 }
@@ -22,7 +22,8 @@
 
 .slider-label {
     margin-right: 10px;
-    white-space: nowrap; /* Prevent text wrapping */
+    white-space: nowrap;
+    /* Prevent text wrapping */
 }
 
 #pokemon-slider::-webkit-slider-thumb {
@@ -34,6 +35,7 @@
     background-size: cover;
     cursor: pointer;
     border: none;
+    box-shadow: none;
 }
 
 #pokemon-slider::-moz-range-thumb {
@@ -43,6 +45,7 @@
     background-size: cover;
     cursor: pointer;
     border: none;
+    box-shadow: none;
 }
 
 #pokemon-slider::-ms-thumb {
@@ -52,4 +55,5 @@
     background-size: cover;
     cursor: pointer;
     border: none;
+    box-shadow: none;
 }
