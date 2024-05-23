@@ -1,7 +1,6 @@
 .pokemon-picker {
   padding: 10px;
   border-radius: 5px;
-  background-color: #fff;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   text-align: center;
   position: relative;
@@ -9,6 +8,7 @@
 
 .pokemon-picker .pokemon-image-box {
   margin-top: 10px;
+  z-index: -1;
 }
 
 .pokemon-picker .pokemon-image {
@@ -49,11 +49,10 @@
 
 .pokemon-types {
   position: absolute;
-  top: 55px; /* Adjust this value as needed */
+  top: 60px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   justify-content: center;
   gap: 5px;
-  z-index: 1; /* Ensure the type icons are on top */
 }
