@@ -87,7 +87,7 @@ function App() {
     const params = new URLSearchParams();
     params.set('numPickers', numPickers);
     params.set('pokemonTeam', JSON.stringify(pokemonTeam));
-    return `${window.location.origin}?${params.toString()}`;
+    return `${window.location.origin}/pokemon-team-builder?${params.toString()}`;
   };
 
   const copyToClipboard = () => {
