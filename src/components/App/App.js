@@ -1,27 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import PokemonTeam from '../PokemonTeam/PokemonTeam';
 import Slider from '../Slider/Slider';
 import TypeCoverage from '../TypeCoverage/TypeCoverage';
 import Recommendations from '../Recommendations/Recommendations';
 import pokemon from 'pokemon';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLink } from '@fortawesome/free-solid-svg-icons';
+import { Tooltip } from 'react-tooltip';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import 'react-tooltip/dist/react-tooltip.css';
 
 function App() {
   const [numPickers, setNumPickers] = useState(6);
-  const [pokemonTeam, setPokemonTeam] = useState(
-    Array(6).fill({ name: '', moveTypes: [], pokemonTypes: [] })
-  );
+  const [pokemonTeam, setPokemonTeam] = useState(Array(6).fill({ name: '', moveTypes: [], pokemonTypes: [] }));
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const numPickersParam = urlParams.get('numPickers');
+    const pokemonTeamParam = urlParams.get('pokemonTeam');
+
+    if (numPickersParam) {
+      setNumPickers(Number(numPickersParam));
+    }
+
+    if (pokemonTeamParam) {
+      const parsedTeam = JSON.parse(pokemonTeamParam);
+      setPokemonTeam(adjustPokemonTeam(parsedTeam, Number(numPickersParam) || 6));
+    }
+  }, []);
+
+  useEffect(() => {
+    const url = generateURL();
+    console.log(url);
+  }, [numPickers, pokemonTeam]);
+
+  const adjustPokemonTeam = (team, size) => {
+    const adjustedTeam = [...team];
+    while (adjustedTeam.length < size) {
+      adjustedTeam.push({ name: '', moveTypes: [], pokemonTypes: [] });
+    }
+    return adjustedTeam.slice(0, size);
+  };
 
   const handleSliderChange = (event) => {
     const newSize = Number(event.target.value);
     setNumPickers(newSize);
-    setPokemonTeam((prevTeam) => {
-      if (newSize > prevTeam.length) {
-        return prevTeam.concat(Array(newSize - prevTeam.length).fill({ name: '', moves: [], pokemonTypes: [] }));
-      } else {
-        return prevTeam.slice(0, newSize);
-      }
-    });
+    setPokemonTeam((prevTeam) => adjustPokemonTeam(prevTeam, newSize));
   };
 
   const handlePickerChange = (index) => async (name, moves) => {
@@ -45,7 +71,6 @@ function App() {
     });
   };
 
-
   const filteredPokemonTeam = pokemonTeam
     .filter(pokemon => pokemon.name !== '')
     .reduce((acc, pokemon, index, array) => {
@@ -59,19 +84,60 @@ function App() {
       return acc;
     }, []);
 
+  const generateURL = () => {
+    const params = new URLSearchParams();
+    params.set('numPickers', numPickers);
+    params.set('pokemonTeam', JSON.stringify(pokemonTeam));
+    return `${window.location.origin}?${params.toString()}`;
+  };
+
+  const copyToClipboard = () => {
+    const url = generateURL();
+    navigator.clipboard.writeText(url).then(() => {
+      console.log('URL copied to clipboard:', url);
+      toast('Copied!', {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+        toastId: 'copy-toast',
+        style: {
+          width: '120px',
+          minHeight: 'unset',
+          margin: '0 auto',
+        },
+        closeButton: false,
+      });
+    });
+  };  
 
   return (
     <div className="App">
       <h1 className="mb-3">Pokémon Gen II-V Team Builder</h1>
       <Slider className="mb-3" value={numPickers} onChange={handleSliderChange} />
-      <PokemonTeam numPickers={numPickers} onPickerChange={handlePickerChange} />
+      <PokemonTeam numPickers={numPickers} onPickerChange={handlePickerChange} pokemonTeam={pokemonTeam} />
       <div className="analysis-section">
         <TypeCoverage teamSize={numPickers} pokemonTeam={filteredPokemonTeam} />
         <Recommendations pokemonTeam={filteredPokemonTeam} teamSize={numPickers} />
       </div>
       <footer className="footer">
+        <div className="copy-link-container">
+          <button
+            className="copy-link-button"
+            onClick={copyToClipboard}
+            data-tooltip-id="copyTooltip"
+          >
+            <FontAwesomeIcon icon={faLink} />
+          </button>
+          <Tooltip id="copyTooltip" place="top" effect="solid">
+            Copy link to team
+          </Tooltip>
+        </div>
         Made by <a href="https://kellenvu.github.io/" target="_blank" rel="noopener noreferrer">Kellen Vu</a>
       </footer>
+      <ToastContainer />
     </div>
   );
 }

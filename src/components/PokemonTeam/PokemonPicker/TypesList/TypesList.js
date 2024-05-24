@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import TypeButton from './TypeButton/TypeButton';
 import './TypesList.css';
 
@@ -7,6 +7,12 @@ const TYPES = [
 ];
 
 const TypesList = ({ selectedTypes, onTypeToggle }) => {
+  const [localSelectedTypes, setLocalSelectedTypes] = useState(selectedTypes);
+
+  useEffect(() => {
+    setLocalSelectedTypes(selectedTypes);
+  }, [selectedTypes]);
+
   const handleToggle = (type, isSelected) => {
     onTypeToggle(type, isSelected);
   };
@@ -17,9 +23,9 @@ const TypesList = ({ selectedTypes, onTypeToggle }) => {
         <TypeButton
           key={type}
           type={type}
-          selected={selectedTypes.includes(type)}
+          selected={localSelectedTypes.includes(type)}
           onToggle={handleToggle}
-          disabled={selectedTypes.length >= 4 && !selectedTypes.includes(type)}
+          disabled={localSelectedTypes.length >= 4 && !localSelectedTypes.includes(type)}
         />
       ))}
     </div>

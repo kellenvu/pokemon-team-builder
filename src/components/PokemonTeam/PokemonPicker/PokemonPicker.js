@@ -5,9 +5,9 @@ import './PokemonPicker.css';
 import TypesList from './TypesList/TypesList';
 import TypeIcon from '../../TypeIcon/TypeIcon';
 
-const PokemonPicker = ({ onPickerChange }) => {
-  const [selectedPokemon, setSelectedPokemon] = useState(null);
-  const [selectedTypes, setSelectedTypes] = useState([]);
+const PokemonPicker = ({ onPickerChange, initialPokemon, initialTypes }) => {
+  const [selectedPokemon, setSelectedPokemon] = useState(initialPokemon ? { label: initialPokemon, value: initialPokemon } : null);
+  const [selectedTypes, setSelectedTypes] = useState(initialTypes || []);
   const [pokemonImage, setPokemonImage] = useState('');
   const [pokemonTypes, setPokemonTypes] = useState([]);
 
@@ -16,11 +16,28 @@ const PokemonPicker = ({ onPickerChange }) => {
     value: name,
   }));
 
+  useEffect(() => {
+    if (initialPokemon) {
+      setSelectedPokemon({ label: initialPokemon, value: initialPokemon });
+      fetchPokemonData(initialPokemon);
+    }
+  }, [initialPokemon]);
+
+  useEffect(() => {
+    setSelectedTypes(initialTypes || []);
+  }, [initialTypes]);
+
   const handlePokemonChange = async (selectedOption) => {
     const name = selectedOption ? selectedOption.value : '';
     setSelectedPokemon(selectedOption);
     onPickerChange(name, selectedTypes);
-    await fetchPokemonData(name);
+
+    if (!name) {
+      setPokemonImage('');
+      setPokemonTypes([]);
+    } else {
+      await fetchPokemonData(name);
+    }
   };
 
   const handleTypeToggle = (type, isSelected) => {
@@ -32,30 +49,34 @@ const PokemonPicker = ({ onPickerChange }) => {
   };
 
   const fetchPokemonData = async (name) => {
+    if (!name) {
+      return; // Do nothing if the name is empty
+    }
+
     try {
       const pokemonId = pokemon.getId(name);
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
       const data = await response.json();
-  
+
       const showdownImage = data.sprites.other?.showdown?.front_default;
       const defaultImage = data.sprites.front_default;
-  
+
       setPokemonImage(showdownImage || defaultImage);
-  
+
       let types = data.types.map(typeInfo => typeInfo.type.name);
-      
+
       const pastTypes = data.past_types.find(pt => pt.generation.name === 'generation-v');
       if (pastTypes) {
         types = pastTypes.types.map(typeInfo => typeInfo.type.name);
       }
-  
+
       setPokemonTypes(types);
     } catch (error) {
       console.error('Error fetching Pokémon data:', error);
       setPokemonImage('');
       setPokemonTypes([]);
     }
-  };  
+  };
 
   return (
     <div className="pokemon-picker">
