@@ -33,7 +33,6 @@ function App() {
 
   useEffect(() => {
     const url = generateURL();
-    console.log(url);
   }, [numPickers, pokemonTeam]);
 
   const adjustPokemonTeam = (team, size) => {
@@ -94,7 +93,6 @@ function App() {
   const copyToClipboard = () => {
     const url = generateURL();
     navigator.clipboard.writeText(url).then(() => {
-      console.log('URL copied to clipboard:', url);
       toast('Copied!', {
         position: "top-center",
         autoClose: 1000,
