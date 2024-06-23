@@ -166,7 +166,7 @@ const recommendationsReplace = (team) => {
 
             if (arrayIsGreater(curr, before)) {
                 recommendations.push({
-                    recommendation: `Replace ${pokemon.name} with ${pkmnType} Pokémon (coverage ${curr.join('/')})`,
+                    recommendation: `Add ${pkmnType} move or replace ${pokemon.name} with ${pkmnType} (coverage ${curr.join('/')})`,
                     score: curr
                 });
             }
